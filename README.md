@@ -1,4 +1,4 @@
-# 🚀 AI Multi-Tool Platform - Frontend Unificado
+# AI Multi-Tool Platform - Frontend Unificado
 
 <div align="center">
 
@@ -23,13 +23,13 @@
 
 ### 🛠️ Funcionalidades
 
-#### 📄 Article Extractor & Summarizer
+#### Article Extractor & Summarizer
 - **CREATE**: Generar resúmenes de artículos con IA
 - **READ**: Listar y filtrar artículos
 - **UPDATE**: Actualizar y regenerar resúmenes
 - **DELETE**: Eliminar artículos
 
-#### 🎨 Cartoon Generator
+#### Cartoon Generator
 - **CREATE**: Generar cartoons desde imágenes
 - **READ**: Listar y filtrar cartoons
 - **UPDATE**: Actualizar cartoons existentes
@@ -38,7 +38,7 @@
 
 ---
 
-## 🚀 Instalación
+##  Instalación
 
 ### 1. Instalar dependencias
 ```bash
@@ -71,7 +71,7 @@ mvn spring-boot:run
 
 ---
 
-## 📊 Arquitectura
+## Arquitectura
 
 ```
 ┌─────────────────────────────────────┐
@@ -89,7 +89,7 @@ mvn spring-boot:run
 
 ---
 
-## 🎨 Paleta de Colores
+##  Paleta de Colores
 
 ### Fondo
 - **Principal**: `#0a0a0a` (Negro profundo)
@@ -110,7 +110,7 @@ mvn spring-boot:run
 
 ---
 
-## 📁 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 unified-ai-platform/
@@ -133,7 +133,7 @@ unified-ai-platform/
 
 ---
 
-## 🎯 Funcionalidades por Tab
+##  Funcionalidades por Tab
 
 ### Tab 1: Article Extractor
 - Formulario para ingresar URL
@@ -153,7 +153,7 @@ unified-ai-platform/
 
 ---
 
-## 🔧 Scripts Disponibles
+## Scripts Disponibles
 
 ```bash
 # Desarrollo
@@ -171,7 +171,7 @@ npm run lint
 
 ---
 
-## 🌐 Endpoints Consumidos
+##  Endpoints Consumidos
 
 ### Article Extractor (http://localhost:8081)
 - `POST /api/articles` - Crear resumen
@@ -193,7 +193,7 @@ npm run lint
 
 ---
 
-## 💡 Características de UI/UX
+##  Características de UI/UX
 
 ### Diseño
 - ✅ Tema oscuro profesional
@@ -218,7 +218,7 @@ npm run lint
 
 ---
 
-## 🚨 Requisitos
+##  Requisitos
 
 - Node.js 18+
 - Backend Article Extractor corriendo en puerto 8081
@@ -226,7 +226,7 @@ npm run lint
 
 ---
 
-## 📝 Notas
+##  Notas
 
 1. **Backends independientes**: Cada backend corre en su propio puerto
 2. **CORS**: Los backends deben tener CORS habilitado
@@ -235,7 +235,7 @@ npm run lint
 
 ---
 
-## 🎥 Para el Video
+##  Para el Video
 
 ### Demostración Article Extractor
 1. Crear 2-3 artículos
@@ -252,7 +252,7 @@ npm run lint
 
 ---
 
-## 👨‍💻 Desarrollo
+##  Desarrollo
 
 Desarrollado con:
 - React 19 + TypeScript
@@ -264,7 +264,7 @@ Desarrollado con:
 
 ---
 
-## 📄 Licencia
+##  Licencia
 
 Proyecto académico - AS241S5 Arquitectura Empresarial Java
 
@@ -272,8 +272,6 @@ Proyecto académico - AS241S5 Arquitectura Empresarial Java
 
 <div align="center">
 
-**¡Frontend unificado con diseño oscuro moderno!** 🚀
-
-Hecho con ❤️ usando React + TypeScript + Vite
+**¡Frontend unificado con diseño oscuro moderno!** 
 
 </div>
