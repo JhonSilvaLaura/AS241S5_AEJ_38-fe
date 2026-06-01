@@ -2,9 +2,9 @@ name: CI/CD Pipeline - Frontend
 
 on:
   push:
-    branches: [ develop, main ]
+    branches: [ develop-unificado, main ]
   pull_request:
-    branches: [ develop, main ]
+    branches: [ develop-unificado, main ]
 
 jobs:
   build-and-deploy:
@@ -38,7 +38,7 @@ jobs:
         retention-days: 1
 
     - name: Trigger Render deployment
-      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/develop-unificado' || github.ref == 'refs/heads/main'
       run: |+
         curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
           -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
@@ -46,7 +46,7 @@ jobs:
           -d '{}'
           
     - name: Deployment notification
-      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/develop-unificado' || github.ref == 'refs/heads/main'
       run: |
         echo "✅ Frontend deployment triggered successfully!"
         echo "🚀 Service ID: ${{ secrets.RENDER_SERVICE_ID }}"
