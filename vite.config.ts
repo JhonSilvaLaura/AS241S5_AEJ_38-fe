@@ -7,13 +7,19 @@ export default defineConfig({
     port: 5175,
     proxy: {
       '/api/articles': {
-        target: 'http://localhost:8081',
+        target: 'https://article-extractor-api-38.onrender.com',
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/articles/, ''),
       },
       '/api/cartoon': {
-        target: 'http://localhost:8085',
+        target: 'https://cartoon-generator-api-38.onrender.com',
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/cartoon/, ''),
       }
     }
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
   }
 })
