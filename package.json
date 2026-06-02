@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm install --legacy-peer-deps && tsc -b && vite build",
+    "render-build": "npm install --legacy-peer-deps && npm run build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

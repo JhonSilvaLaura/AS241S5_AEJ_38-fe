@@ -9,12 +9,12 @@ export default defineConfig({
       '/api/articles': {
         target: 'https://article-extractor-api-38.onrender.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/articles/, ''),
+        rewrite: (path: string) => path.replace(/^\/api\/articles/, ''),
       },
       '/api/cartoon': {
         target: 'https://cartoon-generator-api-38.onrender.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/cartoon/, ''),
+        rewrite: (path: string) => path.replace(/^\/api\/cartoon/, ''),
       }
     }
   },
