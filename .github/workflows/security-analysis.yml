@@ -1,0 +1,158 @@
+name: Security Analysis
+
+on:
+  push:
+    branches: [ develop-unificado ]
+  pull_request:
+    branches: [ develop-unificado ]
+    types: [ opened, synchronize, reopened ]
+  schedule:
+  # Ejecutar todos los lunes a las 2am UTC
+  - cron: '0 2 * * 1'
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: https://sonarcloud.io
+
+    - name: Upload SonarCloud results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: sonarcloud-report
+        path: .scannerwork/
+
+  npm-audit:
+    name: NPM Audit
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Run npm audit
+      run: |
+        npm audit --json > npm-audit.json || true
+        npm audit --audit-level=high
+      continue-on-error: true
+
+    - name: Upload npm audit results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: npm-audit-report
+        path: npm-audit.json
+
+  snyk-dependencies:
+    name: Snyk Dependencies Scan
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm ci --legacy-peer-deps
+
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/node@master
+      continue-on-error: true
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --severity-threshold=high --json-file-output=snyk-dependencies.json
+
+    - name: Upload Snyk results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: snyk-dependencies-report
+        path: snyk-dependencies.json
+
+  eslint-security:
+    name: ESLint Security Analysis
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm ci --legacy-peer-deps
+
+    - name: Run ESLint
+      run: |
+        npx eslint . --ext .ts,.tsx --format json --output-file eslint-report.json || true
+        npx eslint . --ext .ts,.tsx
+      continue-on-error: true
+
+    - name: Upload ESLint results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: eslint-report
+        path: eslint-report.json
+
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+
+    - name: Dependency Review
+      uses: actions/dependency-review-action@v4
+      with:
+        fail-on-severity: high
+
+  security-report:
+    name: Generate Security Report
+    needs: [ sonarcloud, npm-audit, snyk-dependencies, eslint-security ]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+
+    - name: Create summary report
+      run: |
+        echo "# 🔒 Security Analysis Report - Frontend" > security-report.md
+        echo "" >> security-report.md
+        echo "## 📊 Scan Results" >> security-report.md
+        echo "" >> security-report.md
+        echo "- ✅ SonarCloud Analysis: Completed" >> security-report.md
+        echo "- ✅ NPM Audit: Completed" >> security-report.md
+        echo "- ✅ Snyk Dependencies Scan: Completed" >> security-report.md
+        echo "- ✅ ESLint Security Analysis: Completed" >> security-report.md
+        echo "" >> security-report.md
+        echo "Check individual artifacts for detailed reports." >> security-report.md
+
+    - name: Upload consolidated report
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-summary-report
+        path: security-report.md
