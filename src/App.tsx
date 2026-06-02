@@ -842,7 +842,7 @@ function App() {
                           />
                           <button
                             className="btn btn-download"
-                            onClick={() => handleDownloadCartoon(cartoon.resultUrl!, cartoon.imageName)}
+                            onClick={() => handleDownloadCartoon(cartoon.resultUrl!, cartoon.imageName || 'cartoon')}
                             title="Descargar imagen"
                           >
                             <Download size={16} />
@@ -880,7 +880,7 @@ function App() {
                         {cartoon.status === 'pending' && (
                           <button
                             className="btn btn-info btn-small"
-                            onClick={() => handleCheckStatus(cartoon.taskId)}
+                            onClick={() => cartoon.taskId && handleCheckStatus(cartoon.taskId)}
                             disabled={loading}
                           >
                             <Info size={16} />

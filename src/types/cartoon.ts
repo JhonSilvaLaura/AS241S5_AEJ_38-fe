@@ -1,17 +1,14 @@
 export interface CartoonResult {
   id: string;
-  imageName: string;
-  cartoonIndex: number;
-  taskId: string;
-  taskType?: string;
-  requestId?: string;
-  logId?: string;
-  errorCode?: number;
-  errorMsg?: string;
+  originalImageUrl: string;
+  cartoonImageUrl: string;
+  imageName?: string;
   resultUrl?: string;
-  taskStatus?: number;
-  status: 'pending' | 'completed' | 'failed';
-  deleted?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
+  index: number;
+  cartoonIndex?: number;
+  status: 'processing' | 'completed' | 'failed' | 'pending' | 'generated';
+  taskId?: string;
+  errorMsg?: string;
+  createdAt: string;
+  updatedAt: string;
 }
