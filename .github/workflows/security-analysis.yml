@@ -2,9 +2,9 @@ name: Security Analysis
 
 on:
   push:
-    branches: [ develop-unificado ]
+    branches: [ main, develop-unificado ]
   pull_request:
-    branches: [ develop-unificado ]
+    branches: [ main, develop-unificado ]
     types: [ opened, synchronize, reopened ]
   schedule:
   # Ejecutar todos los lunes a las 2am UTC
@@ -12,8 +12,8 @@ on:
 
 jobs:
   sonarcloud:
-    name: Build
-    runs-on: ubuntu-latest
+    name: SonarQube
+    runs-on: windows-latest
     steps:
     - name: Checkout código
       uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
