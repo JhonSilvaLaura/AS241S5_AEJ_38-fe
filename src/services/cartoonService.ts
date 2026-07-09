@@ -1,8 +1,8 @@
 import type { CartoonResult } from '../types/cartoon';
 
 // URL base del API - usa la variable de entorno o el proxy local
-const API_BASE_URL = import.meta.env.PROD
-  ? 'https://cartoon-generator-api-38.onrender.com/cartoons'
+const API_BASE_URL = import.meta.env.DEV
+  ? 'https://cartoon-generator-api-38.onrender.com/api/cartoon'
   : '/api/cartoon';
 
 export const cartoonService = {

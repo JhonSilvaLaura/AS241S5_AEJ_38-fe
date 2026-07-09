@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-configmap
+  namespace: jhon-silva-38
+  labels:
+    app: unified-frontend
+    component: configmap
+data:
+  # URLs de los backends (usando EXTERNAL-IP de Kubernetes)
+  # Para Docker Desktop, usar localhost
+  # Para Minikube, usar la IP externa del cluster
+
+  # Article Extractor API
+  VITE_ARTICLE_API_URL: "http://172.23.0.3:8081"
+
+  # Cartoon Generator API
+  VITE_CARTOON_API_URL: "http://172.23.0.9:8085"
+
+  # Application Configuration
+  NODE_ENV: "production"

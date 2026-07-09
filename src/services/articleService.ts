@@ -2,8 +2,8 @@ import axios from 'axios';
 import type { ArticleSummary, ArticleRequest } from '../types/article';
 
 // URL base del API - usa la variable de entorno o el proxy local
-const API_BASE_URL = import.meta.env.PROD 
-  ? 'https://article-extractor-api-38.onrender.com/articles'
+const API_BASE_URL = import.meta.env.DEV 
+  ? 'https://article-extractor-api-38.onrender.com/api/articles'
   : '/api/articles';
 
 const api = axios.create({
